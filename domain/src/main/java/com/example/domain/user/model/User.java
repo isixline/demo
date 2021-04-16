@@ -1,7 +1,9 @@
 package com.example.domain.user.model;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
@@ -14,6 +16,8 @@ import javax.persistence.Table;
 @Getter
 @Setter
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "user")
 public class User {
@@ -24,4 +28,11 @@ public class User {
 
     @Column
     private String name;
+
+    @Column
+    private String email;
+
+
+    @Column
+    private String password;
 }

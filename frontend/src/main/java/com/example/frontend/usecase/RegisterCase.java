@@ -1,11 +1,23 @@
 package com.example.frontend.usecase;
 
 import com.example.domain.user.model.User;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-public class GetUserDetailCase {
+public class RegisterCase {
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class Request {
+        private String name;
+        private String email;
+        private String password;
+    }
+
     @Getter
     @Setter
     @Builder

@@ -15,10 +15,7 @@ public class UserManagementApplicationService {
 
     public List<GetUsersCase.Response> getUsers() {
         return repository.findAll().stream()
-                .map(user -> GetUsersCase.Response.builder()
-                        .id(user.getId())
-                        .name(user.getName())
-                        .build())
+                .map(GetUsersCase.Response::from)
                 .collect(Collectors.toList());
     }
 }
