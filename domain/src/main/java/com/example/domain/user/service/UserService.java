@@ -11,6 +11,6 @@ public class UserService {
     private final UserRepository repository;
 
     public User getById(String id) {
-        return repository.findById(id);
+        return repository.findById(id).get();
     }
 }

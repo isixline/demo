@@ -1,18 +1,9 @@
 package com.example.domain.user.repository;
 
 import com.example.domain.user.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Collections;
-import java.util.List;
-
 @Repository
-public class UserRepository {
-    public List<User> findAll() {
-        return Collections.emptyList();
-    }
-
-    public User findById(String id) {
-        return User.builder().id(id).name("anyName").build();
-    }
+public interface UserRepository extends JpaRepository<User, String> {
 }
