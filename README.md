@@ -39,10 +39,6 @@ ps：
 实体：可见资源。当一个实体属于另一个实体，生命周期随拥有者
 关系证明：实体间关系的证明，生命周期彼此独立
 
-ps：
-belongs to：实体在同一生命周期内，被拥有者随拥有者的生命周期结束而结束。
-many to many：实体在各自的生命周期，任一生命周期结束，解除关系。实体保持干净，关系证明作为实体。
-
 resource
     - ...
     - ...
@@ -50,4 +46,5 @@ resource
 relation
     - resource(identify)
     - resource(identify)
+    - resource对该relation权限（查看，撤销，创建）
     - ...
