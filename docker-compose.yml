@@ -10,3 +10,10 @@ services:
     environment:
       MYSQL_DATABASE: demo
       MYSQL_ROOT_PASSWORD: root
+  redis:
+    image: redis
+    container_name: demo-redis
+    restart: always
+    command: redis-server --appendonly yes
+    ports:
+      - 6379:6379
