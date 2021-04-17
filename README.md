@@ -42,3 +42,12 @@ ps：
 ps：
 belongs to：实体在同一生命周期内，被拥有者随拥有者的生命周期结束而结束。
 many to many：实体在各自的生命周期，任一生命周期结束，解除关系。实体保持干净，关系证明作为实体。
+
+resource
+    - ...
+    - ...
+    - resource
+relation
+    - resource(identify)
+    - resource(identify)
+    - ...
