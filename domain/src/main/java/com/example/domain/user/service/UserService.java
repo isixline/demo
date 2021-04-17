@@ -12,7 +12,7 @@ public class UserService {
     private final UserRepository repository;
 
     public User getById(String id) {
-        return repository.findById(id).get();
+        return repository.findById(id).orElseThrow(UserException::notFound);
     }
 
     public User create(String name, String email, String password) {
