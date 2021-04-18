@@ -2,14 +2,11 @@ package com.example.frontend.rest;
 
 import com.example.domain.auth.model.Authorize;
 import com.example.domain.auth.service.AuthorizeService;
-import com.example.frontend.service.ArticleApplicationService;
-import com.example.frontend.usecase.CreateArticleCase;
-import com.example.frontend.usecase.GetArticleDetailCase;
-import com.example.frontend.usecase.GetArticlesCase;
+import com.example.frontend.service.TagApplicationService;
+import com.example.frontend.usecase.CreateTagCase;
+import com.example.frontend.usecase.GetTagDetailCase;
+import com.example.frontend.usecase.GetTagsCase;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,30 +16,32 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
-@RequestMapping("articles")
+@RequestMapping("tags")
 @AllArgsConstructor
-public class ArticleController {
-    private final ArticleApplicationService applicationService;
+public class TagController {
+    private final TagApplicationService applicationService;
     private final AuthorizeService authorizeService;
 
     @PostMapping
     @ResponseStatus(CREATED)
-    public CreateArticleCase.Response createArticle(@RequestParam(value = "token") String token,
-                                                    @RequestBody CreateArticleCase.Request request) {
+    public CreateTagCase.Response createTag(@RequestParam(value = "token") String token,
+                                            @RequestBody CreateTagCase.Request request) {
         Authorize authorize = authorizeService.getById(token);
         return applicationService.create(request, authorize);
     }
 
     @GetMapping("/{id}")
-    public GetArticleDetailCase.Response getArticleDetail(@PathVariable("id") String id) {
+    public GetTagDetailCase.Response getTagDetail(@PathVariable("id") String id) {
         return applicationService.getDetail(id);
     }
 
     @GetMapping()
-    public Page<GetArticlesCase.Response> getArticles(@PageableDefault(sort = "lastModifiedAt") Pageable pageable) {
-        return applicationService.getByPage(pageable);
+    public List<GetTagsCase.Response> getTags() {
+        return applicationService.getAll();
     }
 }

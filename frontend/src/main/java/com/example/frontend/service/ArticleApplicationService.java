@@ -22,7 +22,7 @@ public class ArticleApplicationService {
     private final ArticleRepository repository;
 
     public CreateArticleCase.Response create(CreateArticleCase.Request request, Authorize authorize) {
-        User user = userService.getById(authorize.getUserId());
+        User user = userService.getById (authorize.getUserId());
         Article article = service.create(request.getTitle(), request.getContent(), user);
         return CreateArticleCase.Response.from(article);
     }
