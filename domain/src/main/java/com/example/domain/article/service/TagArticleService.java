@@ -1,5 +1,6 @@
 package com.example.domain.article.service;
 
+import com.example.domain.article.exception.TagArticleException;
 import com.example.domain.article.model.Article;
 import com.example.domain.article.model.Tag;
 import com.example.domain.article.model.TagArticle;
@@ -24,7 +25,7 @@ public class TagArticleService {
                 .createdBy(user.getId())
                 .lastModifiedAt(Instant.now())
                 .build();
-
+        validateUnique(tagArticle);
         return repository.save(tagArticle);
     }
 
@@ -32,5 +33,16 @@ public class TagArticleService {
         return repository.findAll(Example.of(TagArticle.builder()
                 .article(article)
                 .build()));
+    }
+
+    private void validateUnique(TagArticle tagArticle) {
+        List<TagArticle> alreadyExistTagArticles = repository.findAll(Example.of(TagArticle.builder()
+                .tag(tagArticle.getTag())
+                .article(tagArticle.getArticle())
+                .build()));
+
+        if (alreadyExistTagArticles.size() > 0) {
+            throw TagArticleException.alreadyExist();
+        }
     }
 }
