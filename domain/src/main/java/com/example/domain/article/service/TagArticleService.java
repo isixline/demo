@@ -19,8 +19,8 @@ public class TagArticleService {
 
     public TagArticle bind(Tag tag, Article article, User user) {
         TagArticle tagArticle = TagArticle.builder()
-                .tagId(tag.getId())
-                .articleId(article.getId())
+                .tag(tag)
+                .article(article)
                 .createdBy(user.getId())
                 .lastModifiedAt(Instant.now())
                 .build();
@@ -30,7 +30,7 @@ public class TagArticleService {
 
     public List<TagArticle> getByArticle(Article article) {
         return repository.findAll(Example.of(TagArticle.builder()
-                .articleId(article.getId())
+                .article(article)
                 .build()));
     }
 }

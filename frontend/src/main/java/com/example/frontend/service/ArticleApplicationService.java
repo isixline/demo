@@ -4,7 +4,6 @@ import com.example.domain.article.model.Article;
 import com.example.domain.article.model.Tag;
 import com.example.domain.article.model.TagArticle;
 import com.example.domain.article.repository.ArticleRepository;
-import com.example.domain.article.repository.TagRepository;
 import com.example.domain.article.service.ArticleService;
 import com.example.domain.article.service.TagArticleService;
 import com.example.domain.article.service.TagService;
@@ -22,11 +21,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
 import java.util.stream.Collectors;
-
-import static java.util.stream.Collectors.toMap;
 
 @Service
 @AllArgsConstructor
@@ -36,7 +31,6 @@ public class ArticleApplicationService {
     private final ArticleRepository repository;
     private final TagService tagService;
     private final TagArticleService tagArticleService;
-    private final TagRepository tagRepository;
 
     public CreateArticleCase.Response create(CreateArticleCase.Request request, Authorize authorize) {
         User user = userService.getById(authorize.getUserId());
@@ -67,13 +61,7 @@ public class ArticleApplicationService {
         Article article = service.getById(id);
         List<TagArticle> tagArticles = tagArticleService.getByArticle(article);
 
-        Map<String, Tag> tagMap = tagRepository.findAllById(
-                tagArticles.stream().map(TagArticle::getTagId).collect(Collectors.toSet()))
-                .stream()
-                .collect(toMap(Tag::getId, Function.identity()));
-
-        return tagArticles.stream().map(tagArticle ->
-                GetArticleTagsCase.Response.from(tagMap.get(tagArticle.getTagId()), tagArticle))
+        return tagArticles.stream().map(GetArticleTagsCase.Response::from)
                 .collect(Collectors.toList());
     }
 }

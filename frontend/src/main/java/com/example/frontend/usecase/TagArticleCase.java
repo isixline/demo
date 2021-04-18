@@ -28,8 +28,8 @@ public class TagArticleCase {
 
         public static Response from(TagArticle tagArticle) {
             return Response.builder()
-                    .tagId(tagArticle.getTagId())
-                    .articleId(tagArticle.getArticleId())
+                    .tagId(tagArticle.getTag().getId())
+                    .articleId(tagArticle.getArticle().getId())
                     .lastModifiedAt(tagArticle.getLastModifiedAt())
                     .build();
         }

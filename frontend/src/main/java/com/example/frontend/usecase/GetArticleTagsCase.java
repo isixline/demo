@@ -1,6 +1,5 @@
 package com.example.frontend.usecase;
 
-import com.example.domain.article.model.Tag;
 import com.example.domain.article.model.TagArticle;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,10 +16,10 @@ public class GetArticleTagsCase {
         private String name;
         private Instant bindAt;
 
-        public static Response from(Tag tag, TagArticle tagArticle) {
+        public static Response from(TagArticle tagArticle) {
             return Response.builder()
-                    .id(tag.getId())
-                    .name(tag.getName())
+                    .id(tagArticle.getTag().getId())
+                    .name(tagArticle.getTag().getName())
                     .bindAt(tagArticle.getLastModifiedAt())
                     .build();
         }
