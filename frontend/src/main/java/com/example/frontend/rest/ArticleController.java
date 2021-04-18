@@ -5,7 +5,11 @@ import com.example.domain.auth.service.AuthorizeService;
 import com.example.frontend.service.ArticleApplicationService;
 import com.example.frontend.usecase.CreateArticleCase;
 import com.example.frontend.usecase.GetArticleDetailCase;
+import com.example.frontend.usecase.GetArticlesCase;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,5 +39,10 @@ public class ArticleController {
     @GetMapping("/{id}")
     public GetArticleDetailCase.Response getArticleDetail(@PathVariable("id") String id) {
         return applicationService.getDetail(id);
+    }
+
+    @GetMapping()
+    public Page<GetArticlesCase.Response> getArticleDetail(@PageableDefault(sort = "lastModifiedAt") Pageable pageable) {
+        return applicationService.getByPage(pageable);
     }
 }
