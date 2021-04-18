@@ -20,14 +20,14 @@ import static org.springframework.http.HttpStatus.CREATED;
 public class UserController {
     private final UserApplicationService applicationService;
 
-    @GetMapping("/{id}")
-    public GetUserDetailCase.Response getUserDetail(@PathVariable("id") String id) {
-        return applicationService.getUserDetail(id);
-    }
-
     @PostMapping
     @ResponseStatus(CREATED)
     public RegisterCase.Response register(@RequestBody RegisterCase.Request request) {
         return applicationService.register(request);
+    }
+
+    @GetMapping("/{id}")
+    public GetUserDetailCase.Response getUserDetail(@PathVariable("id") String id) {
+        return applicationService.getUserDetail(id);
     }
 }
